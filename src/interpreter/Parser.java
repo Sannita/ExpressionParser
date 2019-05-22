@@ -15,51 +15,75 @@ import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
+import java.util.SortedSet;
+import java.util.TreeSet;
 
-/**
- *
- * @author llupacchino
- */
 public class Parser {
 
-    public static List<Symbol> expressionToSymbols(String expression) {
+    private final Map<String, Symbol> table;
 
-        List<Symbol> symbols = new ArrayList<>();
-        while (expression.length() > 0) {
-            int spaceInd = expression.indexOf(" ");
-            if (spaceInd == -1) {
-                spaceInd = Integer.MAX_VALUE;
-            }
-            int leftParInd = expression.indexOf("(");
-            if (leftParInd == -1) {
-                leftParInd = Integer.MAX_VALUE;
-            }
-            int rightParInd = expression.indexOf(")");
-            if (rightParInd == -1) {
-                rightParInd = Integer.MAX_VALUE;
-            }
-
-            int minIndex = Math.min(Math.min(spaceInd, leftParInd), rightParInd);
-            if (minIndex == 0 || minIndex == Integer.MAX_VALUE) {
-                minIndex = 1;
-            }
-
-            String toParse = expression.substring(0, minIndex).trim().toLowerCase();
-            expression = expression.substring(minIndex);
-
-            if (toParse != null && !toParse.isEmpty()) {
-                Symbol op = Symbol.parse(toParse);
-                symbols.add(op);
-            }
-
-        }
-        return symbols;
+    public Parser(Map<String, Symbol> table) {
+        this.table = table;
     }
 
-    public static Deque<Symbol> symbolsToStack(List<Symbol> symbols) throws Exception {
+    public BooleanExpression parse(String expression) throws Exception {
+        List<Symbol> symbols = extractSymbols(expression);
+        Deque<Symbol> stack = createStack(symbols);
+        BooleanExpression result = createExpression(stack);
+        return result;
+    }
+    
+    private List<Symbol> extractSymbols(String expression) {
+        List<Symbol> result = new ArrayList<>();
+
+        Set<Integer> indexes = findSubstringIndexes(expression);
+        int index = 0;
+        for (int splitIndex : indexes) {
+            String token = expression.substring(index, splitIndex).trim().toLowerCase();
+            Symbol op = parseToken(token);
+            if (op != null) {
+                result.add(op);
+            }
+            index = splitIndex;
+        }
+
+        return result;
+    }
+    
+    private Symbol parseToken(String value) {
+        if(value == null || value.isEmpty()){
+            return null;
+        }
+        Symbol s = table.get(value);
+        if (s == null) {
+            s = Symbol.newOperand(value);
+        }
+        return s;
+    }
+
+    private Set<Integer> findSubstringIndexes(String expression) {
+        SortedSet<Integer> indexes = new TreeSet<>();
+        for (String k : table.keySet()) {
+            int index = 0;
+            while (index != -1) {
+                index = expression.indexOf(k, index);
+                if (index != -1) {
+                    indexes.add(index);
+                    index = index + k.length();
+                    indexes.add(index);
+                }
+            }
+        }
+        indexes.add(expression.length());
+        return indexes;
+    }
+
+    private Deque<Symbol> createStack(List<Symbol> symbols) throws Exception {
         Deque<Symbol> stack = new ArrayDeque<>();
         Deque<Symbol> output = new ArrayDeque<>();
-     
+
         for (Symbol op : symbols) {
 
             if (op.isOperand()) {
@@ -74,12 +98,12 @@ public class Parser {
 
             if (op.isRightParenthesis()) {
                 Symbol s;
-                do{
-                    if(stack.isEmpty()){
+                do {
+                    if (stack.isEmpty()) {
                         throw new Exception("Missing parenthesis");
                     }
                     s = stack.pop();
-                    if(!s.isLeftParenthesis()){
+                    if (!s.isLeftParenthesis()) {
                         output.add(s);
                     }
                 } while (!s.isLeftParenthesis());
@@ -100,8 +124,8 @@ public class Parser {
 
         while (!stack.isEmpty()) {
             Symbol s = stack.pop();
-            if(s.isLeftParenthesis()|| s.isRightParenthesis()){
-                 throw new Exception("Missing parenthesis");
+            if (s.isLeftParenthesis() || s.isRightParenthesis()) {
+                throw new Exception("Missing parenthesis");
             }
             output.add(s);
         }
@@ -109,12 +133,12 @@ public class Parser {
         return output;
     }
 
-    public static BooleanExpression stackToBooleanExpression(Deque<Symbol> stack) {
+    private BooleanExpression createExpression(Deque<Symbol> stack) {
         Deque<BooleanExpression> temp = new ArrayDeque<>();
         while (!stack.isEmpty()) {
             Symbol s = stack.pop();
             String value = s.getName();
-            
+
             if ("true".equals(value)) {
                 BooleanExpression be = new ConstantBuilder().withValue(value).build();
                 temp.push(be);
@@ -153,33 +177,4 @@ public class Parser {
         return temp.pop();
     }
 
-    public static void main(String... args) throws Exception {
-        String expr = " a and not (b or not a and b)";
-
-        System.out.println("Input: \"" + expr + "\"\n");
-        List<Symbol> temp = expressionToSymbols(expr);
-        Deque<Symbol> output = symbolsToStack(temp);
-        BooleanExpression be = stackToBooleanExpression(output);
-        System.out.println("Boolean Expression");
-        System.out.println("x = " + be);
-        Context context = new Context();
-        
-        System.out.println("a\tb\tx");
-        
-        context.assign("a", Boolean.FALSE);
-        context.assign("b", Boolean.FALSE);
-        System.out.println("false\tfalse\t" + be.evaluate(context));
-        
-        context.assign("a", Boolean.FALSE);
-        context.assign("b", Boolean.TRUE);
-        System.out.println("false\ttrue\t" + be.evaluate(context));
-        
-        context.assign("a", Boolean.TRUE);
-        context.assign("b", Boolean.FALSE);
-        System.out.println("true\tfalse\t" + be.evaluate(context));
-        
-        context.assign("a", Boolean.TRUE);
-        context.assign("b", Boolean.TRUE);
-        System.out.println("true\ttrue\t" + be.evaluate(context));
-    }
 }

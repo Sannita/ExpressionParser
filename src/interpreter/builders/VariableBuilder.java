@@ -8,10 +8,6 @@ package interpreter.builders;
 import interpreter.BooleanExpression;
 import interpreter.VariableExpression;
 
-/**
- *
- * @author llupacchino
- */
 public class VariableBuilder implements ExpressionBuilder{
 
     private String name;

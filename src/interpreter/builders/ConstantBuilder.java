@@ -8,10 +8,6 @@ package interpreter.builders;
 import interpreter.BooleanExpression;
 import interpreter.Constant;
 
-/**
- *
- * @author llupacchino
- */
 public class ConstantBuilder implements ExpressionBuilder{
     private static final Constant TRUE = new Constant(true);
     private static final Constant FALSE = new Constant(false);

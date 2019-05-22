@@ -5,10 +5,6 @@
  */
 package interpreter;
 
-/**
- *
- * @author llupacchino
- */
 public interface BooleanExpression {
 
     Boolean evaluate(Context context);

@@ -8,10 +8,6 @@ package interpreter.builders;
 import interpreter.BooleanExpression;
 import interpreter.OrExpression;
 
-/**
- *
- * @author llupacchino
- */
 public class OrBuilder implements ExpressionBuilder{
 
     private BooleanExpression op1;

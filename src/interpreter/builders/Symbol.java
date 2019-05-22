@@ -5,37 +5,21 @@
  */
 package interpreter.builders;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-/**
- *
- * @author llupacchino
- */
 public class Symbol {
-
-    public static final String NOT = "not";
-    public static final String AND = "and";
-    public static final String OR = "or";
-    public static final String LEFT_PARENTHESIS = "(";
-    public static final String RIGHT_PARENTHESIS = ")";
-    public static final String NULL = null;
-
     private final String name;
     private final int priority;
     private final Associativity associativity;
     private final Type type;
-
-    private static final Map<String, Symbol> OPERATORS;
-
-    static {
-        OPERATORS = new HashMap<>();
-        OPERATORS.put(NOT, new Symbol(NOT, 3, Associativity.RIGHT, Type.OPERATOR));
-        OPERATORS.put(AND, new Symbol(AND, 2, Associativity.LEFT, Type.OPERATOR));
-        OPERATORS.put(OR, new Symbol(OR, 1, Associativity.LEFT, Type.OPERATOR));
-        OPERATORS.put(LEFT_PARENTHESIS, new Symbol(LEFT_PARENTHESIS, 0, Associativity.LEFT, Type.LEFT_PARENTHESIS));
-        OPERATORS.put(RIGHT_PARENTHESIS, new Symbol(RIGHT_PARENTHESIS, 10, Associativity.LEFT, Type.RIGHT_PARENTHESIS));
-    }
 
     private Symbol(String name, int priority, Associativity associativy, Type type) {
         this.name = name;
@@ -43,13 +27,34 @@ public class Symbol {
         this.associativity = associativy;
         this.type = type;
     }
-
-    public static Symbol parse(String value) {
-        Symbol s = OPERATORS.get(value);
-        if (s == null) {
-            s = new Symbol(value, 0, Associativity.NONE, Type.OPERAND);
+    
+    public static Symbol newOperand(String name){
+        return new Symbol(name, 0, Associativity.NONE, Type.OPERAND);
+    }
+    
+    public static Map<String, Symbol> configSymbols(String fileName){
+        Map<String, Symbol> table = new HashMap<>();
+        List<String> lines = readFile(fileName);
+        for(String line : lines){
+            String[] tmp = line.split(";");
+            Symbol s = new Symbol(tmp[1], Integer.valueOf(tmp[2]), Associativity.valueOf(tmp[3]), Type.valueOf(tmp[4]));
+            table.put(tmp[1], s);
         }
-        return s;
+        return table;
+    }
+    
+    private static List<String> readFile(String file) {
+        try (BufferedReader br = new BufferedReader(new FileReader(file))){
+            List<String> result = new ArrayList<>();
+            String line;
+            while ((line = br.readLine()) != null) {
+                result.add(line);
+            }
+            return result;
+        } catch (IOException ex) {
+            Logger.getLogger(Symbol.class.getName()).log(Level.SEVERE, null, ex);
+            return null;
+        }
     }
 
     public boolean isOperator() {
@@ -100,6 +105,6 @@ public class Symbol {
     }
 
     public enum Type {
-        OPERATOR, OPERAND, RIGHT_PARENTHESIS, LEFT_PARENTHESIS;
+        OPERATOR, OPERAND, RIGHT_PARENTHESIS, LEFT_PARENTHESIS, NONE;
     }
 }

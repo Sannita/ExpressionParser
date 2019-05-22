@@ -5,40 +5,47 @@
  */
 package interpreter;
 
-/**
- *
- * @author llupacchino
- */
+import interpreter.builders.Symbol;
+import java.util.Map;
+
 public class Interpreter {
 
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
-        VariableExpression p = new VariableExpression("p");
-        VariableExpression q = new VariableExpression("q");
+    public static void main(String[] args) throws Exception {
+        
+        Map<String, Symbol> table = Symbol.configSymbols("config.csv");
+        
+        Parser parser = new Parser(table);
 
-        BooleanExpression e = new OrExpression(new AndExpression(new Constant(true), p), new AndExpression(q, new NotExpression(new AndExpression(q, new NotExpression(p)))));
+        String expr = " a and not b or not a and b";
 
+        System.out.println("Input: \"" + expr + "\"\n");
+
+        BooleanExpression be = parser.parse(expr);
+
+        System.out.println("Boolean Expression");
+        System.out.println("x = " + be);
         Context context = new Context();
 
-        System.out.println(e);
+        System.out.println("a\tb\tx");
 
-        context.assign(p, true);
-        context.assign(q, true);
-        System.out.println("(p=true,q=true) The result is: " + e.evaluate(context));
+        context.assign("a", Boolean.FALSE);
+        context.assign("b", Boolean.FALSE);
+        System.out.println("false\tfalse\t" + be.evaluate(context));
 
-        context.assign(p, true);
-        context.assign(q, false);
-        System.out.println("(p=true,q=false) The result is: " + e.evaluate(context));
+        context.assign("a", Boolean.FALSE);
+        context.assign("b", Boolean.TRUE);
+        System.out.println("false\ttrue\t" + be.evaluate(context));
 
-        context.assign(p, false);
-        context.assign(q, true);
-        System.out.println("(p=false,q=true) The result is: " + e.evaluate(context));
+        context.assign("a", Boolean.TRUE);
+        context.assign("b", Boolean.FALSE);
+        System.out.println("true\tfalse\t" + be.evaluate(context));
 
-        context.assign(p, false);
-        context.assign(q, false);
-        System.out.println("(p=false,q=false) The result is: " + e.evaluate(context));
+        context.assign("a", Boolean.TRUE);
+        context.assign("b", Boolean.TRUE);
+        System.out.println("true\ttrue\t" + be.evaluate(context));
     }
 
 }

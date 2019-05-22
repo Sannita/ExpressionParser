@@ -8,10 +8,6 @@ package interpreter.builders;
 import interpreter.BooleanExpression;
 import interpreter.NotExpression;
 
-/**
- *
- * @author llupacchino
- */
 public class NotBuilder implements ExpressionBuilder{
 
     private BooleanExpression op;

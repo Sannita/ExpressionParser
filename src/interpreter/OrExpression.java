@@ -5,10 +5,6 @@
  */
 package interpreter;
 
-/**
- *
- * @author llupacchino
- */
 public class OrExpression implements BooleanExpression {
 
     private final BooleanExpression op1;

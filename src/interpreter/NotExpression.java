@@ -5,10 +5,6 @@
  */
 package interpreter;
 
-/**
- *
- * @author llupacchino
- */
 public class NotExpression implements BooleanExpression {
 
     private final BooleanExpression op;

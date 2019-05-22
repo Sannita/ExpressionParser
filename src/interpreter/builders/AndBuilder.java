@@ -8,10 +8,6 @@ package interpreter.builders;
 import interpreter.AndExpression;
 import interpreter.BooleanExpression;
 
-/**
- *
- * @author llupacchino
- */
 public class AndBuilder implements ExpressionBuilder{
 
     private BooleanExpression op1;

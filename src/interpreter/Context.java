@@ -8,10 +8,6 @@ package interpreter;
 import java.util.HashMap;
 import java.util.Map;
 
-/**
- *
- * @author llupacchino
- */
 public class Context {
     private final Map<String, Boolean> variables;
     

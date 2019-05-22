@@ -5,10 +5,6 @@
  */
 package interpreter;
 
-/**
- *
- * @author llupacchino
- */
 public class VariableExpression implements BooleanExpression {
 
     private final String variableName;

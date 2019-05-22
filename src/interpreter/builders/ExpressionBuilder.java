@@ -7,10 +7,6 @@ package interpreter.builders;
 
 import interpreter.BooleanExpression;
 
-/**
- *
- * @author llupacchino
- */
 public interface ExpressionBuilder {
 
     public BooleanExpression build();

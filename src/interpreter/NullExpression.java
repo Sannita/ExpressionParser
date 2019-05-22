@@ -5,10 +5,6 @@
  */
 package interpreter;
 
-/**
- *
- * @author llupacchino
- */
 public class NullExpression implements BooleanExpression {
 
     public NullExpression() {

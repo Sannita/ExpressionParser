@@ -5,10 +5,6 @@
  */
 package interpreter;
 
-/**
- *
- * @author llupacchino
- */
 public class AndExpression implements BooleanExpression {
 
     private final BooleanExpression op1;

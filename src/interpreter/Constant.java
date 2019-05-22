@@ -5,10 +5,6 @@
  */
 package interpreter;
 
-/**
- *
- * @author llupacchino
- */
 public class Constant implements BooleanExpression {
 
     private final boolean value;
