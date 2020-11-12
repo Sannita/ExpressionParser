@@ -3,14 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interpreter;
+package it.sannita.exparser;
 
-import interpreter.builders.AndBuilder;
-import interpreter.builders.ConstantBuilder;
-import interpreter.builders.NotBuilder;
-import interpreter.builders.OrBuilder;
-import interpreter.builders.Symbol;
-import interpreter.builders.VariableBuilder;
+import it.sannita.exparser.builders.AndBuilder;
+import it.sannita.exparser.builders.ConstantBuilder;
+import it.sannita.exparser.builders.NotBuilder;
+import it.sannita.exparser.builders.OrBuilder;
+import it.sannita.exparser.configuration.SymbolsTable;
+import it.sannita.exparser.model.Symbol;
+import it.sannita.exparser.builders.VariableBuilder;
+import it.sannita.exparser.model.SymbolBuilder;
+
 import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Deque;
@@ -22,9 +25,9 @@ import java.util.TreeSet;
 
 public class Parser {
 
-    private final Map<String, Symbol> table;
+    private final SymbolsTable table;
 
-    public Parser(Map<String, Symbol> table) {
+    public Parser(SymbolsTable table) {
         this.table = table;
     }
 
@@ -56,16 +59,16 @@ public class Parser {
         if(value == null || value.isEmpty()){
             return null;
         }
-        Symbol s = table.get(value);
+        Symbol s = table.getSymbol(value);
         if (s == null) {
-            s = Symbol.newOperand(value);
+            s = SymbolBuilder.getOperandBuilder(value).build();
         }
         return s;
     }
 
     private Set<Integer> findSubstringIndexes(String expression) {
         SortedSet<Integer> indexes = new TreeSet<>();
-        for (String k : table.keySet()) {
+        for (String k : table.getSymbols()) {
             int index = 0;
             while (index != -1) {
                 index = expression.indexOf(k, index);
@@ -137,7 +140,7 @@ public class Parser {
         Deque<BooleanExpression> temp = new ArrayDeque<>();
         while (!stack.isEmpty()) {
             Symbol s = stack.pop();
-            String value = s.getName();
+            String value = s.getSymbol();
 
             if ("true".equals(value)) {
                 BooleanExpression be = new ConstantBuilder().withValue(value).build();

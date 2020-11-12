@@ -1,0 +1,46 @@
+{
+  "symbols": [
+    {
+      "id": "NOT",
+      "symbol": "not",
+      "priority": 30,
+      "associativity": "RIGHT",
+      "type": "OPERATOR"
+    },
+    {
+      "id": "AND",
+      "symbol": "and",
+      "priority": 20,
+      "associativity": "LEFT",
+      "type": "OPERATOR"
+    },
+    {
+      "id": "OR",
+      "symbol": "or",
+      "priority": 10,
+      "associativity": "LEFT",
+      "type": "OPERATOR"
+    },
+    {
+      "id": "LEFT_PARENTHESIS",
+      "symbol": "(",
+      "priority": 0,
+      "associativity": "NONE",
+      "type": "LEFT_PARENTHESIS"
+    },
+    {
+      "id": "RIGHT_PARENTHESIS",
+      "symbol": ")",
+      "priority": 40,
+      "associativity": "LEFT",
+      "type": "RIGHT_PARENTHESIS"
+    },
+    {
+      "id": "SPACE",
+      "symbol": " ",
+      "priority": 0,
+      "associativity": "NONE",
+      "type": "NONE"
+    }
+  ]
+}

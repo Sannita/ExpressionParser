@@ -3,27 +3,27 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interpreter;
+package it.sannita.exparser;
 
-public class OrExpression implements BooleanExpression {
+public class AndExpression implements BooleanExpression {
 
     private final BooleanExpression op1;
     private final BooleanExpression op2;
 
-    public OrExpression(BooleanExpression op1, BooleanExpression op2) {
+    public AndExpression(BooleanExpression op1, BooleanExpression op2) {
         this.op1 = op1;
         this.op2 = op2;
     }
 
     @Override
     public Boolean evaluate(Context context) {
-        return op1.evaluate(context) || op2.evaluate(context);
+        return op1.evaluate(context) && op2.evaluate(context);
     }
 
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        sb.append("(").append(op1).append(" OR ").append(op2).append(")");
+        sb.append("(").append(op1).append(" AND ").append(op2).append(")");
         return sb.toString();
     }
 

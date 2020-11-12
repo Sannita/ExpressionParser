@@ -3,9 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interpreter;
+package it.sannita.exparser.builders;
 
-public interface BooleanExpression {
+import it.sannita.exparser.BooleanExpression;
 
-    Boolean evaluate(Context context);
+public interface ExpressionBuilder {
+
+    public BooleanExpression build();
+
 }

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interpreter.builders;
+package it.sannita.exparser.builders;
 
-import interpreter.BooleanExpression;
-import interpreter.VariableExpression;
+import it.sannita.exparser.BooleanExpression;
+import it.sannita.exparser.VariableExpression;
 
 public class VariableBuilder implements ExpressionBuilder{
 

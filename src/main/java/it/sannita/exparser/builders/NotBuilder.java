@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interpreter.builders;
+package it.sannita.exparser.builders;
 
-import interpreter.BooleanExpression;
-import interpreter.NotExpression;
+import it.sannita.exparser.BooleanExpression;
+import it.sannita.exparser.NotExpression;
 
 public class NotBuilder implements ExpressionBuilder{
 

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interpreter;
+package it.sannita.exparser;
 
-import interpreter.builders.Symbol;
-import java.util.Map;
+import it.sannita.exparser.configuration.ConfigFactory;
+import it.sannita.exparser.configuration.SymbolsTable;
 
 public class Interpreter {
 
@@ -14,8 +14,8 @@ public class Interpreter {
      * @param args the command line arguments
      */
     public static void main(String[] args) throws Exception {
-        
-        Map<String, Symbol> table = Symbol.configSymbols("config.csv");
+
+        SymbolsTable table = ConfigFactory.getConfigFromResource("symbols.json");
         
         Parser parser = new Parser(table);
 

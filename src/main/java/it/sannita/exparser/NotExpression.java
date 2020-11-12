@@ -3,24 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package interpreter;
+package it.sannita.exparser;
 
-public class Constant implements BooleanExpression {
+public class NotExpression implements BooleanExpression {
 
-    private final boolean value;
+    private final BooleanExpression op;
 
-    public Constant(boolean value) {
-        this.value = value;
+    public NotExpression(BooleanExpression op) {
+        this.op = op;
     }
 
     @Override
     public Boolean evaluate(Context context) {
-        return value;
+        return !op.evaluate(context);
     }
 
     @Override
     public String toString() {
-        return String.valueOf(value);
+        return "NOT " + op;
     }
-
 }
