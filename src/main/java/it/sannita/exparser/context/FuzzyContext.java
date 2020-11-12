@@ -5,7 +5,7 @@
  */
 package it.sannita.exparser.context;
 
-import it.sannita.exparser.model.booleans.VariableExpression;
+import it.sannita.exparser.model.fuzzy.VariableExpression;
 
 import java.util.HashMap;
 import java.util.Map;

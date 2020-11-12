@@ -146,9 +146,9 @@ public final class FuzzyExpressionParser {
                 try{
                     double doubleValue = Double.parseDouble(value);
                     if(doubleValue < 0 || doubleValue > 1){
-                        be = new ConstantExpression(doubleValue);
-                    }else{
                         be = new NullExpression();
+                    }else{
+                        be = new ConstantExpression(doubleValue);
                     }
                 }catch (NumberFormatException nfe){
                     be = new VariableExpression(value);
