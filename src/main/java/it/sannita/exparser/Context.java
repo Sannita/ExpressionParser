@@ -5,10 +5,12 @@
  */
 package it.sannita.exparser;
 
+import it.sannita.exparser.expressions.booleans.VariableExpression;
+
 import java.util.HashMap;
 import java.util.Map;
 
-public class Context {
+public final class Context {
     private final Map<String, Boolean> variables;
     
     public Context(){

@@ -3,13 +3,18 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.sannita.exparser;
+package it.sannita.exparser.expressions.booleans;
 
-public class Constant implements BooleanExpression {
+import it.sannita.exparser.Context;
+
+public final class ConstantExpression implements BooleanExpression {
+
+    public static final ConstantExpression TRUE = new ConstantExpression(true);
+    public static final ConstantExpression FALSE = new ConstantExpression(false);
 
     private final boolean value;
 
-    public Constant(boolean value) {
+    public ConstantExpression(boolean value) {
         this.value = value;
     }
 

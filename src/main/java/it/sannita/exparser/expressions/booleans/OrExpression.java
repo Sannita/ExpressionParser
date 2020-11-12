@@ -3,9 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.sannita.exparser;
+package it.sannita.exparser.expressions.booleans;
 
-public class OrExpression implements BooleanExpression {
+import it.sannita.exparser.Context;
+
+public final class OrExpression implements BooleanExpression {
 
     private final BooleanExpression op1;
     private final BooleanExpression op2;

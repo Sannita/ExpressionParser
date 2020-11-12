@@ -5,25 +5,14 @@
  */
 package it.sannita.exparser;
 
-import it.sannita.exparser.builders.AndBuilder;
-import it.sannita.exparser.builders.ConstantBuilder;
-import it.sannita.exparser.builders.NotBuilder;
-import it.sannita.exparser.builders.OrBuilder;
 import it.sannita.exparser.configuration.SymbolsTable;
+import it.sannita.exparser.expressions.booleans.*;
 import it.sannita.exparser.model.Symbol;
-import it.sannita.exparser.builders.VariableBuilder;
 import it.sannita.exparser.model.SymbolBuilder;
 
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.Deque;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.SortedSet;
-import java.util.TreeSet;
+import java.util.*;
 
-public class Parser {
+public final class Parùser {
 
     private final SymbolsTable table;
 
@@ -143,37 +132,37 @@ public class Parser {
             String value = s.getSymbol();
 
             if ("true".equals(value)) {
-                BooleanExpression be = new ConstantBuilder().withValue(value).build();
+                BooleanExpression be = ConstantExpression.TRUE;
                 temp.push(be);
                 continue;
             }
             if ("false".equals(value)) {
-                BooleanExpression be = new ConstantBuilder().withValue(value).build();
+                BooleanExpression be = ConstantExpression.FALSE;
                 temp.push(be);
                 continue;
             }
             if (s.isOperand()) {
-                BooleanExpression be = new VariableBuilder().withName(value).build();
+                BooleanExpression be = new VariableExpression(value);
                 temp.push(be);
                 continue;
             }
             if ("and".equals(value)) {
                 BooleanExpression op2 = temp.pop();
                 BooleanExpression op1 = temp.pop();
-                BooleanExpression be = new AndBuilder().withValues(op1, op2).build();
+                BooleanExpression be = new AndExpression(op1, op2);
                 temp.push(be);
                 continue;
             }
             if ("or".equals(value)) {
                 BooleanExpression op2 = temp.pop();
                 BooleanExpression op1 = temp.pop();
-                BooleanExpression be = new OrBuilder().withValues(op1, op2).build();
+                BooleanExpression be =  new OrExpression(op1, op2);
                 temp.push(be);
                 continue;
             }
             if ("not".equals(value)) {
                 BooleanExpression op = temp.pop();
-                BooleanExpression be = new NotBuilder().withOperand(op).build();
+                BooleanExpression be = new NotExpression(op);
                 temp.push(be);
             }
         }

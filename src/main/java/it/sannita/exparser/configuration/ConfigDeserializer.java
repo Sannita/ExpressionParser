@@ -12,7 +12,7 @@ import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
 
-public class ConfigDeserializer extends StdDeserializer<SymbolsTable> {
+public final class ConfigDeserializer extends StdDeserializer<SymbolsTable> {
     public ConfigDeserializer(){
         this(null);
     }
