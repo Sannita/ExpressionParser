@@ -7,7 +7,8 @@ package it.sannita.exparser;
 
 import it.sannita.exparser.configuration.ConfigFactory;
 import it.sannita.exparser.configuration.SymbolsTable;
-import it.sannita.exparser.expressions.booleans.BooleanExpression;
+import it.sannita.exparser.model.booleans.BooleanExpression;
+import it.sannita.exparser.parser.BooleanExpressionParser;
 
 public class Interpreter {
 
@@ -18,13 +19,13 @@ public class Interpreter {
 
         SymbolsTable table = ConfigFactory.getConfigFromResource("symbols.json");
         
-        Parser parser = new Parser(table);
+        BooleanExpressionParser booleanExpressionParser = new BooleanExpressionParser(table);
 
         String expr = " a and not b or not a and b ";
 
         System.out.println("Input: \"" + expr + "\"\n");
 
-        BooleanExpression be = parser.parse(expr);
+        BooleanExpression be = booleanExpressionParser.parse(expr);
 
         System.out.println("Boolean Expression");
         System.out.println("x = " + be);

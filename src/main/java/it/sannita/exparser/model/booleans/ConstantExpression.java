@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.sannita.exparser.expressions.booleans;
+package it.sannita.exparser.model.booleans;
 
 import it.sannita.exparser.Context;
 

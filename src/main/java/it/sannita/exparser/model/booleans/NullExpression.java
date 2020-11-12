@@ -3,25 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.sannita.exparser.expressions.booleans;
+package it.sannita.exparser.model.booleans;
 
 import it.sannita.exparser.Context;
 
-public final class NotExpression implements BooleanExpression {
+public final class NullExpression implements BooleanExpression {
 
-    private final BooleanExpression op;
-
-    public NotExpression(BooleanExpression op) {
-        this.op = op;
+    public NullExpression() {
     }
 
     @Override
     public Boolean evaluate(Context context) {
-        return !op.evaluate(context);
+        return null;
     }
 
     @Override
     public String toString() {
-        return "NOT " + op;
+        return "null";
     }
+
 }

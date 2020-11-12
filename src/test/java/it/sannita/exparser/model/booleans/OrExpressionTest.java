@@ -1,6 +1,9 @@
-package it.sannita.exparser.expressions.booleans;
+package it.sannita.exparser.model.booleans;
 
 import it.sannita.exparser.Context;
+import it.sannita.exparser.model.booleans.BooleanExpression;
+import it.sannita.exparser.model.booleans.ConstantExpression;
+import it.sannita.exparser.model.booleans.OrExpression;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

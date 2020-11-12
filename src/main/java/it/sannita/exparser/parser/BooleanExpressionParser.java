@@ -3,20 +3,20 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.sannita.exparser;
+package it.sannita.exparser.parser;
 
 import it.sannita.exparser.configuration.SymbolsTable;
-import it.sannita.exparser.expressions.booleans.*;
 import it.sannita.exparser.model.Symbol;
 import it.sannita.exparser.model.SymbolBuilder;
+import it.sannita.exparser.model.booleans.*;
 
 import java.util.*;
 
-public final class Parser {
+public final class BooleanExpressionParser {
 
     private final SymbolsTable table;
 
-    public Parser(SymbolsTable table) {
+    public BooleanExpressionParser(SymbolsTable table) {
         this.table = table;
     }
 
