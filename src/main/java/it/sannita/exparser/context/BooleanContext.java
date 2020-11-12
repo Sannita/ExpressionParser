@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.sannita.exparser;
+package it.sannita.exparser.context;
 
 import it.sannita.exparser.model.booleans.VariableExpression;
 
 import java.util.HashMap;
 import java.util.Map;
 
-public final class Context {
+public final class BooleanContext {
     private final Map<String, Boolean> variables;
     
-    public Context(){
+    public BooleanContext(){
         this.variables = new HashMap<>();
     }
     

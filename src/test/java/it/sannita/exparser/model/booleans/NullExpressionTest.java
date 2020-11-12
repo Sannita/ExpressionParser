@@ -1,8 +1,6 @@
 package it.sannita.exparser.model.booleans;
 
-import it.sannita.exparser.Context;
-import it.sannita.exparser.model.booleans.BooleanExpression;
-import it.sannita.exparser.model.booleans.NullExpression;
+import it.sannita.exparser.context.BooleanContext;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
@@ -11,10 +9,10 @@ public class NullExpressionTest {
 
     @Test
     public void evaluateFalse() {
-        Context context = new Context();
+        BooleanContext booleanContext = new BooleanContext();
 
         BooleanExpression nullExpression = new NullExpression();
-        assertNull(nullExpression.evaluate(context));
+        assertNull(nullExpression.evaluate(booleanContext));
     }
 
 }

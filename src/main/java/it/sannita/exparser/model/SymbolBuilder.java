@@ -17,8 +17,8 @@ public final class SymbolBuilder {
         return new SymbolBuilder(symbol, priority, Symbol.Associativity.valueOf(associativity), Symbol.Type.valueOf(type));
     }
 
-    public static SymbolBuilder getOperandBuilder(String name){
-        return new SymbolBuilder(name, 0, Symbol.Associativity.NONE, Symbol.Type.OPERAND);
+    public static SymbolBuilder getOperandBuilder(String symbol){
+        return new SymbolBuilder(symbol, 0, Symbol.Associativity.NONE, Symbol.Type.OPERAND);
     }
 
     public String getSymbol() {

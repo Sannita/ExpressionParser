@@ -3,20 +3,21 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.sannita.exparser.model.booleans;
+package it.sannita.exparser.model.fuzzy;
 
 import it.sannita.exparser.context.BooleanContext;
+import it.sannita.exparser.context.FuzzyContext;
 
 import java.util.Objects;
 
-public final class ConstantExpression implements BooleanExpression {
+public final class ConstantExpression implements FuzzyExpression {
 
-    public static final ConstantExpression TRUE = new ConstantExpression(true);
-    public static final ConstantExpression FALSE = new ConstantExpression(false);
+    public static final FuzzyExpression TRUE = new ConstantExpression(1.0);
+    public static final FuzzyExpression FALSE = new ConstantExpression(0.0);
 
-    private final boolean value;
+    private final double value;
 
-    public ConstantExpression(boolean value) {
+    public ConstantExpression(double value) {
         this.value = value;
     }
 
@@ -34,7 +35,7 @@ public final class ConstantExpression implements BooleanExpression {
     }
 
     @Override
-    public Boolean evaluate(BooleanContext booleanContext) {
+    public Double evaluate(FuzzyContext fuzzyContext) {
         return value;
     }
 

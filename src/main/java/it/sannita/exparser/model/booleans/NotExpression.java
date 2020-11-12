@@ -5,7 +5,7 @@
  */
 package it.sannita.exparser.model.booleans;
 
-import it.sannita.exparser.Context;
+import it.sannita.exparser.context.BooleanContext;
 
 public final class NotExpression implements BooleanExpression {
 
@@ -16,8 +16,8 @@ public final class NotExpression implements BooleanExpression {
     }
 
     @Override
-    public Boolean evaluate(Context context) {
-        return !op.evaluate(context);
+    public Boolean evaluate(BooleanContext booleanContext) {
+        return !op.evaluate(booleanContext);
     }
 
     @Override

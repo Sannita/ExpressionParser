@@ -3,23 +3,23 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.sannita.exparser.model.booleans;
+package it.sannita.exparser.model.fuzzy;
 
-import it.sannita.exparser.context.BooleanContext;
+import it.sannita.exparser.context.FuzzyContext;
 
-public final class OrExpression implements BooleanExpression {
+public final class OrExpression implements FuzzyExpression {
 
-    private final BooleanExpression op1;
-    private final BooleanExpression op2;
+    private final FuzzyExpression op1;
+    private final FuzzyExpression op2;
 
-    public OrExpression(BooleanExpression op1, BooleanExpression op2) {
+    public OrExpression(FuzzyExpression op1, FuzzyExpression op2) {
         this.op1 = op1;
         this.op2 = op2;
     }
 
     @Override
-    public Boolean evaluate(BooleanContext booleanContext) {
-        return op1.evaluate(booleanContext) || op2.evaluate(booleanContext);
+    public Double evaluate(FuzzyContext fuzzyContext) {
+        return Math.max(op1.evaluate(fuzzyContext) , op2.evaluate(fuzzyContext));
     }
 
     @Override

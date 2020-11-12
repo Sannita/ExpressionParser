@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.sannita.exparser.model.booleans;
+package it.sannita.exparser.model.fuzzy;
 
-import it.sannita.exparser.context.BooleanContext;
+import it.sannita.exparser.context.FuzzyContext;
 
-public interface BooleanExpression {
+public interface FuzzyExpression {
 
-    Boolean evaluate(BooleanContext booleanContext);
+    Double evaluate(FuzzyContext fuzzyContext);
 }

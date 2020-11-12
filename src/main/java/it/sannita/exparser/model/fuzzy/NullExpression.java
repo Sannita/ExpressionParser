@@ -3,17 +3,17 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.sannita.exparser.model.booleans;
+package it.sannita.exparser.model.fuzzy;
 
-import it.sannita.exparser.context.BooleanContext;
+import it.sannita.exparser.context.FuzzyContext;
 
-public final class NullExpression implements BooleanExpression {
+public final class NullExpression implements FuzzyExpression {
 
     public NullExpression() {
     }
 
     @Override
-    public Boolean evaluate(BooleanContext booleanContext) {
+    public Double evaluate(FuzzyContext fuzzyContext) {
         return null;
     }
 

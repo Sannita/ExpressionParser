@@ -7,6 +7,7 @@ package it.sannita.exparser;
 
 import it.sannita.exparser.configuration.ConfigFactory;
 import it.sannita.exparser.configuration.SymbolsTable;
+import it.sannita.exparser.context.BooleanContext;
 import it.sannita.exparser.model.booleans.BooleanExpression;
 import it.sannita.exparser.parser.BooleanExpressionParser;
 
@@ -29,25 +30,25 @@ public class Interpreter {
 
         System.out.println("Boolean Expression");
         System.out.println("x = " + be);
-        Context context = new Context();
+        BooleanContext booleanContext = new BooleanContext();
 
         System.out.println("a\tb\tx");
 
-        context.assign("a", Boolean.FALSE);
-        context.assign("b", Boolean.FALSE);
-        System.out.println("false\tfalse\t" + be.evaluate(context));
+        booleanContext.assign("a", Boolean.FALSE);
+        booleanContext.assign("b", Boolean.FALSE);
+        System.out.println("false\tfalse\t" + be.evaluate(booleanContext));
 
-        context.assign("a", Boolean.FALSE);
-        context.assign("b", Boolean.TRUE);
-        System.out.println("false\ttrue\t" + be.evaluate(context));
+        booleanContext.assign("a", Boolean.FALSE);
+        booleanContext.assign("b", Boolean.TRUE);
+        System.out.println("false\ttrue\t" + be.evaluate(booleanContext));
 
-        context.assign("a", Boolean.TRUE);
-        context.assign("b", Boolean.FALSE);
-        System.out.println("true\tfalse\t" + be.evaluate(context));
+        booleanContext.assign("a", Boolean.TRUE);
+        booleanContext.assign("b", Boolean.FALSE);
+        System.out.println("true\tfalse\t" + be.evaluate(booleanContext));
 
-        context.assign("a", Boolean.TRUE);
-        context.assign("b", Boolean.TRUE);
-        System.out.println("true\ttrue\t" + be.evaluate(context));
+        booleanContext.assign("a", Boolean.TRUE);
+        booleanContext.assign("b", Boolean.TRUE);
+        System.out.println("true\ttrue\t" + be.evaluate(booleanContext));
     }
 
 }

@@ -3,11 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package it.sannita.exparser.model.booleans;
+package it.sannita.exparser.model.fuzzy;
 
-import it.sannita.exparser.context.BooleanContext;
+import it.sannita.exparser.context.FuzzyContext;
 
-public final class VariableExpression implements BooleanExpression {
+public final class VariableExpression implements FuzzyExpression {
 
     private final String variableName;
 
@@ -20,8 +20,8 @@ public final class VariableExpression implements BooleanExpression {
     }
 
     @Override
-    public Boolean evaluate(BooleanContext booleanContext) {
-        return booleanContext.lookup(getVariableName());
+    public Double evaluate(FuzzyContext fuzzyContext) {
+        return fuzzyContext.lookup(getVariableName());
     }
 
     @Override
