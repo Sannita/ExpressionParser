@@ -12,7 +12,7 @@ import it.sannita.exparser.model.SymbolBuilder;
 
 import java.util.*;
 
-public final class Parùser {
+public final class Parser {
 
     private final SymbolsTable table;
 

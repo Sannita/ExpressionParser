@@ -25,7 +25,7 @@ public final class Context {
         variables.put(var, value);
     }
     
-    public boolean lookup(String variableName){
+    public Boolean lookup(String variableName){
         return variables.get(variableName);
     }
 }
