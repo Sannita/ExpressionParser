@@ -3,11 +3,11 @@ package it.sannita.exparser.parser;
 import it.sannita.exparser.configuration.ConfigFactory;
 import it.sannita.exparser.configuration.SymbolsTable;
 import it.sannita.exparser.context.FuzzyContext;
+import it.sannita.exparser.model.fuzzy.FuzzyClass;
 import it.sannita.exparser.model.fuzzy.FuzzyExpression;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.*;
 
 public class FuzzyExpressionParserTest {
 
@@ -18,76 +18,69 @@ public class FuzzyExpressionParserTest {
 
         FuzzyExpressionParser fuzzyExpressionParser = new FuzzyExpressionParser(table);
 
-        String expr = "x := a and not b or not a and b => z";
+        String expr = "ZE and PS => NS";
 
-        FuzzyExpression be = fuzzyExpressionParser.parse(expr);
-        assertNotNull(be);
+        FuzzyExpression fuzzyExpression = fuzzyExpressionParser.parse(expr);
+        assertNotNull(fuzzyExpression);
 
-        fuzzyContext.assign("a", 0.0);
-        fuzzyContext.assign("b", 0.0);
-        assertEquals(0.0, be.evaluate(fuzzyContext), 0);
-        assertEquals(0.0, fuzzyContext.lookup("x"), 0);
-        assertEquals(0.0, fuzzyContext.lookup("z"), 0);
+        fuzzyContext.assign("ZE", 0.0);
+        fuzzyContext.assign("PS", 0.0);
+        assertEquals(0.0, fuzzyContext.lookup("ZE"), 0);
+        assertEquals(0.0, fuzzyContext.lookup("PS"), 0);
+        assertNull(fuzzyContext.lookup("NS"));
+        FuzzyClass result1 = fuzzyExpression.evaluate(fuzzyContext);
+        assertNotNull(result1);
+        assertEquals("NS", result1.getName());
+        assertEquals(0.0, result1.getValue(), 0);
+        assertEquals(0.0, fuzzyContext.lookup("NS"), 0);
 
-        fuzzyContext.assign("a", 0.0);
-        fuzzyContext.assign("b", 1.0);
-        assertEquals(1.0, be.evaluate(fuzzyContext), 0);
-        assertEquals(1.0, fuzzyContext.lookup("x"), 0);
-        assertEquals(1.0, fuzzyContext.lookup("z"), 0);
+        fuzzyContext.clear();
+        fuzzyContext.assign("ZE", 0.0);
+        fuzzyContext.assign("PS", 1.0);
+        assertEquals(0.0, fuzzyContext.lookup("ZE"), 0);
+        assertEquals(1.0, fuzzyContext.lookup("PS"), 0);
+        assertNull(fuzzyContext.lookup("NS"));
+        FuzzyClass result2 = fuzzyExpression.evaluate(fuzzyContext);
+        assertNotNull(result2);
+        assertEquals("NS", result2.getName());
+        assertEquals(0.0, result2.getValue(), 0);
+        assertEquals(0.0, fuzzyContext.lookup("NS"), 0);
 
-        fuzzyContext.assign("a", 1.0);
-        fuzzyContext.assign("b", 0.0);
-        assertEquals(1.0, be.evaluate(fuzzyContext), 0);
-        assertEquals(1.0, fuzzyContext.lookup("x"), 0);
-        assertEquals(1.0, fuzzyContext.lookup("z"), 0);
+        fuzzyContext.clear();
+        fuzzyContext.assign("ZE", 1.0);
+        fuzzyContext.assign("PS", 0.0);
+        assertEquals(1.0, fuzzyContext.lookup("ZE"), 0);
+        assertEquals(0.0, fuzzyContext.lookup("PS"), 0);
+        assertNull(fuzzyContext.lookup("NS"));
+        FuzzyClass result3 = fuzzyExpression.evaluate(fuzzyContext);
+        assertNotNull(result3);
+        assertEquals("NS", result3.getName());
+        assertEquals(0.0, result3.getValue(), 0);
+        assertEquals(0.0, fuzzyContext.lookup("NS"), 0);
 
-        fuzzyContext.assign("a", 1.0);
-        fuzzyContext.assign("b", 1.0);
-        assertEquals(0.0, be.evaluate(fuzzyContext), 0);
-        assertEquals(0.0, fuzzyContext.lookup("x"), 0);
-        assertEquals(0.0, fuzzyContext.lookup("z"), 0);
+        fuzzyContext.clear();
+        fuzzyContext.assign("ZE", 1.0);
+        fuzzyContext.assign("PS", 1.0);
+        assertEquals(1.0, fuzzyContext.lookup("ZE"), 0);
+        assertEquals(1.0, fuzzyContext.lookup("PS"), 0);
+        assertNull(fuzzyContext.lookup("NS"));
+        FuzzyClass result4 = fuzzyExpression.evaluate(fuzzyContext);
+        assertNotNull(result4);
+        assertEquals("NS", result4.getName());
+        assertEquals(1.0, result4.getValue(), 0);
+        assertEquals(1.0, fuzzyContext.lookup("NS"), 0);
 
-        fuzzyContext.assign("a", 0.3);
-        fuzzyContext.assign("b", 0.3);
-        assertEquals(0.3, be.evaluate(fuzzyContext), 0);
-        assertEquals(0.3, fuzzyContext.lookup("x"), 0);
-        assertEquals(0.3, fuzzyContext.lookup("z"), 0);
-
-        fuzzyContext.assign("a", 0.5);
-        fuzzyContext.assign("b", 0.5);
-        assertEquals(0.5, be.evaluate(fuzzyContext), 0);
-        assertEquals(0.5, fuzzyContext.lookup("x"), 0);
-        assertEquals(0.5, fuzzyContext.lookup("z"), 0);
-
-        fuzzyContext.assign("a", 0.8);
-        fuzzyContext.assign("b", 0.8);
-        assertEquals(0.2, be.evaluate(fuzzyContext), 0.000000001);
-        assertEquals(0.2, fuzzyContext.lookup("x"), 0.000000001);
-        assertEquals(0.2, fuzzyContext.lookup("z"), 0.000000001);
-
-        fuzzyContext.assign("a", 0.3);
-        fuzzyContext.assign("b", 0.8);
-        assertEquals(0.7, be.evaluate(fuzzyContext), 0);
-        assertEquals(0.7, fuzzyContext.lookup("x"), 0);
-        assertEquals(0.7, fuzzyContext.lookup("z"), 0);
-
-        fuzzyContext.assign("a", 0.8);
-        fuzzyContext.assign("b", 0.3);
-        assertEquals(0.7, be.evaluate(fuzzyContext), 0);
-        assertEquals(0.7, fuzzyContext.lookup("x"), 0);
-        assertEquals(0.7, fuzzyContext.lookup("z"), 0);
-
-        fuzzyContext.assign("a", 0.2);
-        fuzzyContext.assign("b", 0.3);
-        assertEquals(0.3, be.evaluate(fuzzyContext), 0);
-        assertEquals(0.3, fuzzyContext.lookup("x"), 0);
-        assertEquals(0.3, fuzzyContext.lookup("z"), 0);
-
-        fuzzyContext.assign("a", 0.3);
-        fuzzyContext.assign("b", 0.2);
-        assertEquals(0.3, be.evaluate(fuzzyContext), 0);
-        assertEquals(0.3, fuzzyContext.lookup("x"), 0);
-        assertEquals(0.3, fuzzyContext.lookup("z"), 0);
+        fuzzyContext.clear();
+        fuzzyContext.assign("ZE", 0.3);
+        fuzzyContext.assign("PS", 0.8);
+        assertEquals(0.3, fuzzyContext.lookup("ZE"), 0);
+        assertEquals(0.8, fuzzyContext.lookup("PS"), 0);
+        assertNull(fuzzyContext.lookup("NS"));
+        FuzzyClass result5 = fuzzyExpression.evaluate(fuzzyContext);
+        assertNotNull(result5);
+        assertEquals("NS", result5.getName());
+        assertEquals(0.3, result5.getValue(), 0);
+        assertEquals(0.3, fuzzyContext.lookup("NS"), 0);
 
     }
 }

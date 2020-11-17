@@ -18,8 +18,12 @@ public final class OrExpression implements FuzzyExpression {
     }
 
     @Override
-    public Double evaluate(FuzzyContext fuzzyContext) {
-        return Math.max(op1.evaluate(fuzzyContext) , op2.evaluate(fuzzyContext));
+    public FuzzyClass evaluate(FuzzyContext fuzzyContext) {
+        Double v1 = op1.evaluate(fuzzyContext).getValue();
+        Double v2 = op2.evaluate(fuzzyContext).getValue();
+        Double result = Math.max(v1, v2);
+
+        return new FuzzyClass(null, result);
     }
 
     @Override

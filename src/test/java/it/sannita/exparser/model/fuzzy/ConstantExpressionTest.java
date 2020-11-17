@@ -13,7 +13,10 @@ public class ConstantExpressionTest {
 
         FuzzyExpression constantTrue = new ConstantExpression(1.0);
         assertEquals(ConstantExpression.TRUE, constantTrue);
-        assertEquals(1.0, constantTrue.evaluate(fuzzyContext), 0.0);
+        FuzzyClass result = constantTrue.evaluate(fuzzyContext);
+        assertNotNull(result);
+        assertNull(result.getName());
+        assertEquals(1.0, result.getValue(), 0.0);
     }
 
     @Test
@@ -22,7 +25,10 @@ public class ConstantExpressionTest {
 
         FuzzyExpression constantTrue = new ConstantExpression(0.0);
         assertEquals(ConstantExpression.FALSE, constantTrue);
-        assertEquals(0.0, constantTrue.evaluate(fuzzyContext), 0.0);
+        FuzzyClass result = constantTrue.evaluate(fuzzyContext);
+        assertNotNull(result);
+        assertNull(result.getName());
+        assertEquals(0.0, result.getValue(), 0.0);
     }
 
     @Test
@@ -30,7 +36,10 @@ public class ConstantExpressionTest {
         FuzzyContext fuzzyContext = new FuzzyContext();
 
         FuzzyExpression constantTrue = new ConstantExpression(0.6);
-        assertEquals(0.6, constantTrue.evaluate(fuzzyContext), 0.0);
+        FuzzyClass result = constantTrue.evaluate(fuzzyContext);
+        assertNotNull(result);
+        assertNull(result.getName());
+        assertEquals(0.6, result.getValue(), 0.0);
     }
 
 }

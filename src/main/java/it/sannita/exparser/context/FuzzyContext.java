@@ -28,4 +28,8 @@ public final class FuzzyContext {
     public Double lookup(String variableName){
         return variables.get(variableName);
     }
+
+    public void clear(){
+        variables.clear();
+    }
 }

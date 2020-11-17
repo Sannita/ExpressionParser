@@ -9,5 +9,5 @@ import it.sannita.exparser.context.FuzzyContext;
 
 public interface FuzzyExpression {
 
-    Double evaluate(FuzzyContext fuzzyContext);
+    FuzzyClass evaluate(FuzzyContext fuzzyContext);
 }

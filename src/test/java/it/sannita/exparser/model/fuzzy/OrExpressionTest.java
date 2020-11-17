@@ -3,7 +3,7 @@ package it.sannita.exparser.model.fuzzy;
 import it.sannita.exparser.context.FuzzyContext;
 import org.junit.Test;
 
-import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.*;
 
 public class OrExpressionTest {
 
@@ -12,7 +12,10 @@ public class OrExpressionTest {
         FuzzyContext fuzzyContext = new FuzzyContext();
 
         FuzzyExpression orExpression = new OrExpression(ConstantExpression.FALSE, ConstantExpression.FALSE);
-        assertEquals(0.0, orExpression.evaluate(fuzzyContext), 0);
+        FuzzyClass result = orExpression.evaluate(fuzzyContext);
+        assertNotNull(result);
+        assertNull(result.getName());
+        assertEquals(0.0, result.getValue(), 0);
     }
 
     @Test
@@ -20,7 +23,10 @@ public class OrExpressionTest {
         FuzzyContext fuzzyContext = new FuzzyContext();
 
         FuzzyExpression orExpression = new OrExpression(ConstantExpression.FALSE, ConstantExpression.TRUE);
-        assertEquals(1.0, orExpression.evaluate(fuzzyContext), 0);
+        FuzzyClass result = orExpression.evaluate(fuzzyContext);
+        assertNotNull(result);
+        assertNull(result.getName());
+        assertEquals(1.0, result.getValue(), 0);
     }
 
     @Test
@@ -28,7 +34,10 @@ public class OrExpressionTest {
         FuzzyContext fuzzyContext = new FuzzyContext();
 
         FuzzyExpression orExpression = new OrExpression(ConstantExpression.TRUE, ConstantExpression.FALSE);
-        assertEquals(1.0, orExpression.evaluate(fuzzyContext), 0);
+        FuzzyClass result = orExpression.evaluate(fuzzyContext);
+        assertNotNull(result);
+        assertNull(result.getName());
+        assertEquals(1.0, result.getValue(), 0);
     }
 
     @Test
@@ -36,7 +45,10 @@ public class OrExpressionTest {
         FuzzyContext fuzzyContext = new FuzzyContext();
 
         FuzzyExpression orExpression = new OrExpression(ConstantExpression.TRUE, ConstantExpression.TRUE);
-        assertEquals(1.0, orExpression.evaluate(fuzzyContext), 0);
+        FuzzyClass result = orExpression.evaluate(fuzzyContext);
+        assertNotNull(result);
+        assertNull(result.getName());
+        assertEquals(1.0, result.getValue(), 0);
     }
 
     @Test
@@ -44,7 +56,10 @@ public class OrExpressionTest {
         FuzzyContext fuzzyContext = new FuzzyContext();
 
         FuzzyExpression orExpression = new OrExpression(new ConstantExpression(0.3), new ConstantExpression(0.9));
-        assertEquals(0.9, orExpression.evaluate(fuzzyContext), 0);
+        FuzzyClass result = orExpression.evaluate(fuzzyContext);
+        assertNotNull(result);
+        assertNull(result.getName());
+        assertEquals(0.9, result.getValue(), 0);
     }
 
 }

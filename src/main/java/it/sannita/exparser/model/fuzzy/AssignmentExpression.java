@@ -18,10 +18,10 @@ public final class AssignmentExpression implements FuzzyExpression {
     }
 
     @Override
-    public Double evaluate(FuzzyContext fuzzyContext) {
-        Double result = op2.evaluate(fuzzyContext);
-        fuzzyContext.assign(op1, result);
-        return result;
+    public FuzzyClass evaluate(FuzzyContext fuzzyContext) {
+        FuzzyClass result = op2.evaluate(fuzzyContext);
+        fuzzyContext.assign(op1, result.getValue());
+        return new FuzzyClass(op1.getVariableName(), result.getValue());
     }
 
     @Override

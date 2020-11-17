@@ -13,7 +13,10 @@ public class NotExpressionTest {
         FuzzyContext fuzzyContext = new FuzzyContext();
 
         FuzzyExpression notExpression = new NotExpression(ConstantExpression.FALSE);
-        assertEquals(1.0, notExpression.evaluate(fuzzyContext), 0.0);
+        FuzzyClass result = notExpression.evaluate(fuzzyContext);
+        assertNotNull(result);
+        assertNull(result.getName());
+        assertEquals(1.0, result.getValue(), 0);
     }
 
     @Test
@@ -21,7 +24,10 @@ public class NotExpressionTest {
         FuzzyContext fuzzyContext = new FuzzyContext();
 
         FuzzyExpression notExpression = new NotExpression(ConstantExpression.TRUE);
-        assertEquals(0.0, notExpression.evaluate(fuzzyContext), 0.0);
+        FuzzyClass result = notExpression.evaluate(fuzzyContext);
+        assertNotNull(result);
+        assertNull(result.getName());
+        assertEquals(0.0, result.getValue(), 0);
     }
 
     @Test
@@ -29,6 +35,9 @@ public class NotExpressionTest {
         FuzzyContext fuzzyContext = new FuzzyContext();
 
         FuzzyExpression notExpression = new NotExpression(new ConstantExpression(0.7));
-        assertEquals(0.3, notExpression.evaluate(fuzzyContext), 0.000000001);
+        FuzzyClass result = notExpression.evaluate(fuzzyContext);
+        assertNotNull(result);
+        assertNull(result.getName());
+        assertEquals(0.3, result.getValue(), 0.00000001);
     }
 }

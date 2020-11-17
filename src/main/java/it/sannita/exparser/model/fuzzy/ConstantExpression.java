@@ -5,7 +5,6 @@
  */
 package it.sannita.exparser.model.fuzzy;
 
-import it.sannita.exparser.context.BooleanContext;
 import it.sannita.exparser.context.FuzzyContext;
 
 import java.util.Objects;
@@ -35,8 +34,8 @@ public final class ConstantExpression implements FuzzyExpression {
     }
 
     @Override
-    public Double evaluate(FuzzyContext fuzzyContext) {
-        return value;
+    public FuzzyClass evaluate(FuzzyContext fuzzyContext) {
+        return new FuzzyClass(null, value);
     }
 
     @Override

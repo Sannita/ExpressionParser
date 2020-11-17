@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package it.sannita.exparser.model.fuzzy;
 
 import it.sannita.exparser.context.FuzzyContext;
@@ -20,8 +15,9 @@ public final class VariableExpression implements FuzzyExpression {
     }
 
     @Override
-    public Double evaluate(FuzzyContext fuzzyContext) {
-        return fuzzyContext.lookup(getVariableName());
+    public FuzzyClass evaluate(FuzzyContext fuzzyContext) {
+        Double value = fuzzyContext.lookup(getVariableName());
+        return new FuzzyClass(variableName, value);
     }
 
     @Override

@@ -16,8 +16,9 @@ public final class NotExpression implements FuzzyExpression {
     }
 
     @Override
-    public Double evaluate(FuzzyContext fuzzyContext) {
-        return 1.0 - op.evaluate(fuzzyContext);
+    public FuzzyClass evaluate(FuzzyContext fuzzyContext) {
+        Double value = 1.0 - op.evaluate(fuzzyContext).getValue();
+        return new FuzzyClass(null, value);
     }
 
     @Override

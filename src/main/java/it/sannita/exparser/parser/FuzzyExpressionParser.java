@@ -33,7 +33,7 @@ public final class FuzzyExpressionParser {
         Set<Integer> indexes = findSubstringIndexes(expression);
         int index = 0;
         for (int splitIndex : indexes) {
-            String token = expression.substring(index, splitIndex).trim().toLowerCase();
+            String token = expression.substring(index, splitIndex).trim();
             Symbol op = parseToken(token);
             if (op != null) {
                 result.add(op);

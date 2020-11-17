@@ -13,7 +13,7 @@ public final class NullExpression implements FuzzyExpression {
     }
 
     @Override
-    public Double evaluate(FuzzyContext fuzzyContext) {
+    public FuzzyClass evaluate(FuzzyContext fuzzyContext) {
         return null;
     }
 
