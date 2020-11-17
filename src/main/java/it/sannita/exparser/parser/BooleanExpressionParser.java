@@ -9,6 +9,7 @@ import it.sannita.exparser.configuration.SymbolsTable;
 import it.sannita.exparser.model.Symbol;
 import it.sannita.exparser.model.SymbolBuilder;
 import it.sannita.exparser.model.booleans.*;
+import it.sannita.exparser.model.fuzzy.FuzzyExpression;
 
 import java.util.*;
 
@@ -163,6 +164,12 @@ public final class BooleanExpressionParser {
             if ("not".equals(value)) {
                 BooleanExpression op = temp.pop();
                 BooleanExpression be = new NotExpression(op);
+                temp.push(be);
+            }
+            if ("=".equals(value)) {
+                BooleanExpression op2 = temp.pop();
+                VariableExpression op1 = (VariableExpression)temp.pop();
+                BooleanExpression be =  new AssignmentExpression(op1, op2);
                 temp.push(be);
             }
         }

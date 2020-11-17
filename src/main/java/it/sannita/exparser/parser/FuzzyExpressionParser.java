@@ -132,48 +132,55 @@ public final class FuzzyExpressionParser {
             String value = s.getSymbol();
 
             if ("true".equals(value)) {
-                FuzzyExpression be = ConstantExpression.TRUE;
-                temp.push(be);
+                FuzzyExpression fe = ConstantExpression.TRUE;
+                temp.push(fe);
                 continue;
             }
             if ("false".equals(value)) {
-                FuzzyExpression be = ConstantExpression.FALSE;
-                temp.push(be);
+                FuzzyExpression fe = ConstantExpression.FALSE;
+                temp.push(fe);
                 continue;
             }
             if (s.isOperand()) {
-                FuzzyExpression be;
+                FuzzyExpression fe;
                 try{
                     double doubleValue = Double.parseDouble(value);
                     if(doubleValue < 0 || doubleValue > 1){
-                        be = new NullExpression();
+                        fe = new NullExpression();
                     }else{
-                        be = new ConstantExpression(doubleValue);
+                        fe = new ConstantExpression(doubleValue);
                     }
                 }catch (NumberFormatException nfe){
-                    be = new VariableExpression(value);
+                    fe = new VariableExpression(value);
                 }
-                temp.push(be);
+                temp.push(fe);
                 continue;
             }
             if ("and".equals(value)) {
                 FuzzyExpression op2 = temp.pop();
                 FuzzyExpression op1 = temp.pop();
-                FuzzyExpression be = new AndExpression(op1, op2);
-                temp.push(be);
+                FuzzyExpression fe = new AndExpression(op1, op2);
+                temp.push(fe);
                 continue;
             }
             if ("or".equals(value)) {
                 FuzzyExpression op2 = temp.pop();
                 FuzzyExpression op1 = temp.pop();
-                FuzzyExpression be =  new OrExpression(op1, op2);
-                temp.push(be);
+                FuzzyExpression fe =  new OrExpression(op1, op2);
+                temp.push(fe);
                 continue;
             }
             if ("not".equals(value)) {
                 FuzzyExpression op = temp.pop();
-                FuzzyExpression be = new NotExpression(op);
-                temp.push(be);
+                FuzzyExpression fe = new NotExpression(op);
+                temp.push(fe);
+                continue;
+            }
+            if ("=".equals(value)) {
+                FuzzyExpression op2 = temp.pop();
+                VariableExpression op1 = (VariableExpression)temp.pop();
+                FuzzyExpression fe =  new AssignmentExpression(op1, op2);
+                temp.push(fe);
             }
         }
         return temp.pop();

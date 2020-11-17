@@ -36,6 +36,13 @@
       "type": "RIGHT_PARENTHESIS"
     },
     {
+      "id": "ASSIGN",
+      "symbol": "=",
+      "priority": 5,
+      "associativity": "RIGHT",
+      "type": "OPERATOR"
+    },
+    {
       "id": "SPACE",
       "symbol": " ",
       "priority": 0,
