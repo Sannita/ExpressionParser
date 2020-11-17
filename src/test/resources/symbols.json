@@ -36,10 +36,17 @@
       "type": "RIGHT_PARENTHESIS"
     },
     {
-      "id": "ASSIGN",
-      "symbol": "=",
+      "id": "ASSIGN_FROM",
+      "symbol": ":=",
       "priority": 5,
       "associativity": "RIGHT",
+      "type": "OPERATOR"
+    },
+    {
+      "id": "ASSIGN_TO",
+      "symbol": "=>",
+      "priority": 3,
+      "associativity": "LEFT",
       "type": "OPERATOR"
     },
     {

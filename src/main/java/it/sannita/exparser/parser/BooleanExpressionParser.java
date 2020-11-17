@@ -166,9 +166,15 @@ public final class BooleanExpressionParser {
                 BooleanExpression be = new NotExpression(op);
                 temp.push(be);
             }
-            if ("=".equals(value)) {
+            if (":=".equals(value)) {
                 BooleanExpression op2 = temp.pop();
                 VariableExpression op1 = (VariableExpression)temp.pop();
+                BooleanExpression be =  new AssignmentExpression(op1, op2);
+                temp.push(be);
+            }
+            if ("=>".equals(value)) {
+                VariableExpression op1 = (VariableExpression)temp.pop();
+                BooleanExpression op2 = temp.pop();
                 BooleanExpression be =  new AssignmentExpression(op1, op2);
                 temp.push(be);
             }

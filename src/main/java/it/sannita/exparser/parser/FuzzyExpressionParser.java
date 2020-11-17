@@ -176,9 +176,16 @@ public final class FuzzyExpressionParser {
                 temp.push(fe);
                 continue;
             }
-            if ("=".equals(value)) {
+            if (":=".equals(value)) {
                 FuzzyExpression op2 = temp.pop();
                 VariableExpression op1 = (VariableExpression)temp.pop();
+                FuzzyExpression fe =  new AssignmentExpression(op1, op2);
+                temp.push(fe);
+                continue;
+            }
+            if ("=>".equals(value)) {
+                VariableExpression op1 = (VariableExpression)temp.pop();
+                FuzzyExpression op2 = temp.pop();
                 FuzzyExpression fe =  new AssignmentExpression(op1, op2);
                 temp.push(fe);
             }
